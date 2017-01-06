@@ -1,0 +1,11 @@
+composer.lock
+phpcs.xml
+phpdoc.dist.xml
+phpmd.xml
+bin/
+docs/_build/
+docs/api-build/
+docs/api-cache/
+build/
+tests/results/
+vendor/

@@ -1,0 +1,6 @@
+machine:
+  timezone:
+    America/Los_Angeles
+test:
+  override:
+    - phpunit --coverage-php AffiliatizeMe.cov --bootstrap tests/bootstrap.php tests/AffiliatizeMe/AffiliatizeMeTest.php

@@ -1,0 +1,32 @@
+{
+    "name": "honeyfund/affiliatizeme",
+    "description": "Tools to \"affiliatize\" links",
+    "keywords": ["affiliate","linking","affiliatize","affiliatise"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Honeyfund.com, Inc.",
+            "homepage": "https://www.honeyfund.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/honeyfund/affiliatizeme/issues"
+    },
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpcov": "^2.0|^3.0",
+        "phpunit/phpunit": "^4.3|^5.0"
+    },
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "autoload": {
+        "psr-4": {
+            "Honeyfund\\AffiliatizeMe\\": "src/AffiliatizeMe/",
+            "Honeyfund\\Tests\\AffiliatizeMeTest\\": "tests/AffiliatizeMeTest/"
+        }
+    }
+}

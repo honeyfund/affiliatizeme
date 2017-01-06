@@ -6,10 +6,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-namespace \Honeyfund\AffiatizeMe;
+namespace Honeyfund\AffiliatizeMe;
 
-class AffiatizeMe
+class AffiliatizeMe
 {
+	private static $strLinkShareID = "REPLACE_WITH_YOUR_LINKSHARE_ID";
+
 	/**
 	 * Generate an "affiliatized" URL based on the input URL
 	 *
@@ -28,9 +30,10 @@ class AffiatizeMe
 		if(!empty($strURL))
 		{
 			$arrURL = parse_url($strURL);
-			if(!isset($arrURL['scheme']))
+			if(!isset($arrURL['scheme']) || !isset($arrURL['host']))
 			{
-				$arrURL = parse_url("http://" . $strURL);
+				$strURL = "http://" . ltrim($strURL, "/:");
+				$arrURL = parse_url($strURL);
 			}
 
 			// See LinkShare's documentation on creating an affiliate link at:
@@ -40,11 +43,11 @@ class AffiatizeMe
 			// • mid= The ID of the Advertiser who you are creating a link to
 			// • murl= The Advertiser landing page where your visitors will be taken
 			// • u1= Optional field to track sub-sites or members
-			if(AffiatizeMe::_isLinkShareURL($arrURL))
+			if(AffiliatizeMe::_isLinkShareURL($arrURL))
 			{
-				$strID = "5mx9DcY8ZuE";
-				$strMID = AffiatizeMe::_getLinkShareMID($arrURL);
-				$strEncodedURL = urlencode(AffiatizeMe::_cleanURL($strURL));
+				$strID = AffiliatizeMe::$strLinkShareID;
+				$strMID = AffiliatizeMe::_getLinkShareMID($arrURL);
+				$strEncodedURL = urlencode(AffiliatizeMe::_cleanURL($strURL));
 				$strResultURL = "http://click.linksynergy.com/deeplink?id=" . $strID . "&mid=" . $strMID . "&murl=" . $strEncodedURL;
 			}
 		}
@@ -151,10 +154,10 @@ class AffiatizeMe
 		{
 			// Clean up the link, if necessary
 			$arrURL = parse_url($strURL);
-			$strScheme = (empty($arrURL['scheme']) ? 'http':$arrURL['scheme']);
-			$strScheme = (((strcasecmp($strScheme, 'http') == 0) || (strcasecmp($strScheme, 'https') == 0)) ? $strScheme:'http');
-			return $strScheme.'://'.$arrURL['host']
-				  .(empty($arrURL['host']) ? ltrim($arrURL['path'],'/'):$arrURL['path'])
+			$strscheme = (empty($arrURL['scheme']) ? 'http':$arrURL['scheme']);
+			$strscheme = (((strcasecmp($strscheme, 'http') == 0) || (strcasecmp($strscheme, 'https') == 0)) ? $strscheme:'http');
+			return $strscheme.'://'.$arrURL['host']
+				  .(empty($arrURL['path']) ? '/':$arrURL['path'])
 				  .(empty($arrURL['query']) ? '':'?'.$arrURL['query']);
 		}
 		
